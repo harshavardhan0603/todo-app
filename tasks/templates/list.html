@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">{{ request.user }} 
+      </a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+	x
+    
+      <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+    </ul>
+
+  </div>
+</nav>
+  
+<div class="container">
+
+
+	
+<style>
+
+	body{
+		background-color: black;
+	}
+
+	input{
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		box-sizing: border-box;
+	}
+
+	input::placeholder {
+	  color: rgb(250, 7, 7);
+	}
+
+	.submit{
+		background-color: black;
+	}
+
+	.center-column{
+		width:600px;
+		margin: 20px auto;
+		padding:20px;
+		background-color: green;
+		border-radius: 3px;
+		box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75);
+	}
+
+	.item-row{
+		background-color: rgb(232, 115, 134);
+		margin: 10px;
+		padding: 20px;
+		border-radius: 3px;
+		color: #fff;
+		font-size: 16px;
+		box-shadow: 0px -1px 10px -4px rgba(0,0,0,0.75);
+	}
+
+	.btn-danger{
+		background-color: #ffae19;
+		border-color: #e59400;
+	}
+	h1{
+		color: red;
+		text-align: center;
+	}
+    h3{
+		color: blue;
+		text-align: center;
+	}
+</style>    
+<h1> CREATE TASK </h1> <h3 >   Incompleted Tasks {{count}}</h3>
+<div class="center-column">
+
+	<form method="POST" action="/">
+		{% csrf_token %}
+        <input type="text" id="myInput" placeholder="Title..." name="title">
+		<input class="btn btn-info" type="submit" name="Create Task" >
+	</form>
+
+	<div class="todo-list">
+
+        {% for i in task %}
+		<div class="item-row">
+		
+		
+		<a class="btn btn-sm btn-info" href="{% url 'update' i.id %}">
+			{% if i.complete  %}
+			<strike> {{i}} </strike>
+			{% else %}
+			{{i}}
+			{% endif %}
+		</a>
+		<a class="btn btn-sm btn-danger" href="{% url 'delete' i.id %}">Delete</a>
+		</div>
+	{% endfor %}
+	</div>
+</div>
+
+
+</div>
+
+</body>
+</html>
+
+
